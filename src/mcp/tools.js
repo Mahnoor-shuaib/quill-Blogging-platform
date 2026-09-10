@@ -52,8 +52,15 @@ export function updatePost({ user_id, id, title, content, tags }) {
 }
 
 export function deletePost({ user_id, id }) {
-  const result = db.prepare(`DELETE FROM posts WHERE id = ? AND user_id = ?`).run(id, user_id);
-  if (result.changes === 0) throw new Error('Post not found.');
+  const existing = db.prepare(`SELECT id FROM posts WHERE id = ? AND user_id = ?`).get(id, user_id);
+  if (!existing) throw new Error('Post not found.');
+
+  // Pehle is post ke saare analytics events delete karein (foreign key constraint ki wajah se)
+  db.prepare(`DELETE FROM analytics_events WHERE post_id = ?`).run(id);
+
+  // Ab post delete karein
+  db.prepare(`DELETE FROM posts WHERE id = ? AND user_id = ?`).run(id, user_id);
+
   return { id, message: 'Post deleted successfully.' };
 }
 
