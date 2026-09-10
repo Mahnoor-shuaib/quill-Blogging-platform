@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Quill — Posts</title>
+  <link rel="stylesheet" href="/dashboard-assets/style.css">
+</head>
+<body>
+  <div class="shell">
+    <div class="sidebar">
+      <div class="brand">Quill</div>
+      <nav>
+        <a href="/dashboard" class="active">Posts</a>
+        <a href="/dashboard/posts/new">New post</a>
+        <a href="/dashboard/analytics">Analytics</a>
+        <a href="/dashboard/account">Account</a>
+      </nav>
+      <a href="/dashboard/logout" class="logout">Log out</a>
+    </div>
+
+    <div class="main">
+      <% if (msg) { %>
+        <div style="background: var(--published-bg); color: var(--published-text); padding: 12px 16px; border-radius: 6px; margin-bottom: 20px; font-size: 14px;">
+          <%= msg %>
+        </div>
+      <% } %>
+
+      <% if (err) { %>
+        <div style="background: #fbeae5; color: var(--danger); padding: 12px 16px; border-radius: 6px; margin-bottom: 20px; font-size: 14px;">
+          <%= err %>
+        </div>
+      <% } %>
+
+      <div class="page-head">
+        <div>
+          <h1>Posts</h1>
+          <p class="meta" style="color: var(--text-muted); margin-top: 6px;">
+            Your public blog: <a href="/blog/<%= userId %>" target="_blank" style="color: var(--accent);">/blog/<%= userId %></a>
+          </p>
+        </div>
+        <a href="/dashboard/posts/new" class="btn">New post</a>
+      </div>
+
+      <% if (posts.length === 0) { %>
+        <div class="empty-state">
+          <h2>Nothing here yet</h2>
+          <p>Write your first post, or ask your agent to draft one.</p>
+          <a href="/dashboard/posts/new" class="btn" style="margin-top: 14px; display: inline-block;">Write a post</a>
+        </div>
+      <% } %>
+
+      <% posts.forEach(post => { %>
+        <div class="post-row status-<%= post.status %>">
+          <div>
+            <h3><%= post.title %></h3>
+            <div class="meta">
+              <span class="badge badge-<%= post.status %>"><%= post.status %></span>
+              <% if (post.status === 'scheduled' && post.scheduled_at) { %>
+                scheduled for <%= post.scheduled_at %>
+              <% } else { %>
+                updated <%= post.updated_at %>
+              <% } %>
+            </div>
+          </div>
+          <div class="post-actions" style="flex-wrap: wrap; justify-content: flex-end; gap: 6px;">
+            <a href="/dashboard/posts/<%= post.id %>/edit" class="btn btn-sm btn-outline">Edit</a>
+            <a href="/dashboard/posts/<%= post.id %>/seo" class="btn btn-sm btn-outline">SEO</a>
+
+            <% if (post.status !== 'published') { %>
+              <form method="POST" action="/dashboard/posts/<%= post.id %>/publish">
+                <button type="submit" class="btn btn-sm">Publish</button>
+              </form>
+            <% } else { %>
+              <form method="POST" action="/dashboard/posts/<%= post.id %>/unpublish">
+                <button type="submit" class="btn btn-sm btn-outline">Unpublish</button>
+              </form>
+            <% } %>
+
+            <% if (post.status === 'draft' || post.status === 'scheduled') { %>
+              <form method="POST" action="/dashboard/posts/<%= post.id %>/schedule" style="display:flex; gap:4px;">
+                <input type="datetime-local" name="publish_at" required style="padding:5px; border:1px solid var(--border); border-radius:4px; font-size:12px;" />
+                <button type="submit" class="btn btn-sm btn-outline"><%= post.status === 'scheduled' ? 'Reschedule' : 'Schedule' %></button>
+              </form>
+            <% } %>
+
+            <% if (post.status === 'scheduled') { %>
+              <form method="POST" action="/dashboard/posts/<%= post.id %>/unpublish">
+                <button type="submit" class="btn btn-sm btn-outline">Cancel schedule</button>
+              </form>
+            <% } %>
+
+            <form method="POST" action="/dashboard/posts/<%= post.id %>/delete">
+              <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+            </form>
+          </div>
+        </div>
+      <% }) %>
+    </div>
+  </div>
+</body>
+</html>

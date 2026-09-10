@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Quill — Your MCP URL</title>
+  <link rel="stylesheet" href="/dashboard-assets/style.css">
+</head>
+<body>
+  <div class="auth-page">
+    <div class="auth-hero">
+      <div class="brand">Quill</div>
+      <div>
+        <div class="headline">You're in.</div>
+        <p class="sub">One URL connects your agent to your blog.</p>
+      </div>
+      <div></div>
+    </div>
+    <div class="auth-form-side">
+      <div class="auth-form" style="max-width: 420px;">
+        <h2>Account created</h2>
+        <p class="warning-text">Copy this now — it won't be shown again</p>
+        <div class="key-box"><%= mcpUrl %></div>
+        <p class="lede">Add this URL to your IDE's MCP config (Claude Code, Cursor, Windsurf) to start managing your blog by talking to your agent.</p>
+        <a href="/dashboard" class="btn btn-full">Go to dashboard</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

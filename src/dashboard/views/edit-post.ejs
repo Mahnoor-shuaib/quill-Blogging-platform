@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Quill — <%= post ? 'Edit Post' : 'New Post' %></title>
+  <link rel="stylesheet" href="/dashboard-assets/style.css">
+</head>
+<body>
+  <div class="shell">
+    <div class="sidebar">
+      <div class="brand">Quill</div>
+      <nav>
+        <a href="/dashboard">Posts</a>
+        <a href="/dashboard/posts/new" class="<%= post ? '' : 'active' %>">New post</a>
+        <a href="/dashboard/analytics">Analytics</a>
+        <a href="/dashboard/account">Account</a>
+      </nav>
+      <a href="/dashboard/logout" class="logout">Log out</a>
+    </div>
+
+    <div class="main">
+      <a href="/dashboard" class="back-link">← Back to posts</a>
+      <div class="editor-card">
+        <% if (err) { %>
+          <div style="background: #fbeae5; color: var(--danger); padding: 12px 16px; border-radius: 6px; margin-bottom: 18px; font-size: 14px;">
+            <%= err %>
+          </div>
+        <% } %>
+        <form method="POST" action="<%= post ? '/dashboard/posts/' + post.id + '/edit' : '/dashboard/posts/new' %>">
+          <input type="text" name="title" placeholder="Post title" value="<%= post ? post.title : '' %>" required />
+          <textarea name="content" placeholder="Write your post in Markdown..." required><%= post ? post.content_md : '' %></textarea>
+          <button type="submit" class="btn">Save</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

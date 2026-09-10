@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Quill — SEO Settings</title>
+  <link rel="stylesheet" href="/dashboard-assets/style.css">
+</head>
+<body>
+  <div class="shell">
+    <div class="sidebar">
+      <div class="brand">Quill</div>
+      <nav>
+        <a href="/dashboard">Posts</a>
+        <a href="/dashboard/posts/new">New post</a>
+        <a href="/dashboard/analytics">Analytics</a>
+        <a href="/dashboard/account">Account</a>
+      </nav>
+      <a href="/dashboard/logout" class="logout">Log out</a>
+    </div>
+
+    <div class="main">
+      <a href="/dashboard" class="back-link">← Back to posts</a>
+      <h1 style="margin-bottom: 24px;">SEO — <%= post.title %></h1>
+
+      <div class="editor-card" style="max-width: 520px;">
+        <form method="POST" action="/dashboard/posts/<%= post.id %>/seo">
+          <label class="meta" style="color: var(--text-muted); display:block; margin-bottom:4px;">meta title</label>
+          <input type="text" name="meta_title" value="<%= post.meta_title || '' %>" placeholder="SEO title" style="width:100%; padding:10px; margin-bottom:16px; border:1px solid var(--border); border-radius:6px; font-family:inherit;" />
+
+          <label class="meta" style="color: var(--text-muted); display:block; margin-bottom:4px;">meta description</label>
+          <textarea name="meta_description" placeholder="SEO description" style="width:100%; padding:10px; margin-bottom:16px; border:1px solid var(--border); border-radius:6px; font-family:inherit; min-height:80px;"><%= post.meta_description || '' %></textarea>
+
+          <label class="meta" style="color: var(--text-muted); display:block; margin-bottom:4px;">slug</label>
+          <input type="text" name="slug" value="<%= post.slug || '' %>" placeholder="url-friendly-slug" style="width:100%; padding:10px; margin-bottom:20px; border:1px solid var(--border); border-radius:6px; font-family:inherit;" />
+
+          <button type="submit" class="btn">Save SEO settings</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

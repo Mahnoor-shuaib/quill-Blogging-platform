@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Quill — Account</title>
+  <link rel="stylesheet" href="/dashboard-assets/style.css">
+</head>
+<body>
+  <div class="shell">
+    <div class="sidebar">
+      <div class="brand">Quill</div>
+      <nav>
+        <a href="/dashboard">Posts</a>
+        <a href="/dashboard/posts/new">New post</a>
+        <a href="/dashboard/account" class="active">Account</a>
+      </nav>
+      <a href="/dashboard/logout" class="logout">Log out</a>
+    </div>
+
+    <div class="main">
+      <h1 style="margin-bottom: 28px;">Account</h1>
+
+      <div class="editor-card" style="max-width: 520px; margin-bottom: 20px;">
+        <div class="meta" style="color: var(--text-muted); margin-bottom: 4px;">email</div>
+        <div style="font-size: 16px; margin-bottom: 20px;"><%= email %></div>
+
+        <div class="meta" style="color: var(--text-muted); margin-bottom: 4px;">active mcp keys</div>
+        <div style="font-size: 16px; margin-bottom: 20px;"><%= activeKeyCount %></div>
+
+        <% if (newKey) { %>
+          <div class="warning-text" style="margin-bottom: 8px;">New key generated — copy it now, it won't be shown again</div>
+          <div class="key-box"><%= newKey %></div>
+        <% } %>
+
+        <form method="POST" action="/dashboard/account/rotate">
+          <button type="submit" class="btn">Rotate API key</button>
+        </form>
+        <p style="color: var(--text-muted); font-size: 13px; margin-top: 10px;">
+          Rotating revokes your old key immediately and issues a new one. Update your IDE's MCP config afterward.
+        </p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

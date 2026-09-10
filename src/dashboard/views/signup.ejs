@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Quill — Sign Up</title>
+  <link rel="stylesheet" href="/dashboard-assets/style.css">
+</head>
+<body>
+  <div class="auth-page">
+    <div class="auth-hero">
+      <div class="brand">Quill</div>
+      <div>
+        <div class="headline">Write, edit, and publish without leaving your IDE.</div>
+        <p class="sub">Sign up and get a personal MCP URL for your coding agent.</p>
+      </div>
+      <div></div>
+    </div>
+    <div class="auth-form-side">
+      <div class="auth-form">
+        <h2>Create your account</h2>
+        <p class="lede">Takes less than a minute.</p>
+        <% if (error) { %>
+          <div class="error-box"><%= error %></div>
+        <% } %>
+        <form method="POST" action="/dashboard/signup">
+          <input type="email" name="email" placeholder="Email" required />
+          <input type="password" name="password" placeholder="Password" required />
+          <button type="submit" class="btn btn-full">Create account</button>
+        </form>
+        <p class="auth-footer">Already have an account? <a href="/dashboard/login">Log in</a></p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

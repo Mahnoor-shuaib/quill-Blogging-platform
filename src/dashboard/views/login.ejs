@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Quill — Login</title>
+  <link rel="stylesheet" href="/dashboard-assets/style.css">
+</head>
+<body>
+  <div class="auth-page">
+    <div class="auth-hero">
+      <div class="brand">Quill</div>
+      <div>
+        <div class="headline">Your blog dashboard is your editor.</div>
+        <p class="sub">Talk to your blog the way you talk to your code.</p>
+      </div>
+      <div></div>
+    </div>
+    <div class="auth-form-side">
+      <div class="auth-form">
+        <h2>Welcome back</h2>
+        <p class="lede">Log in to manage your posts.</p>
+        <% if (error) { %>
+          <div class="error-box"><%= error %></div>
+        <% } %>
+        <form method="POST" action="/dashboard/login">
+          <input type="email" name="email" placeholder="Email" required />
+          <input type="password" name="password" placeholder="Password" required />
+          <button type="submit" class="btn btn-full">Log in</button>
+        </form>
+        <p class="auth-footer">No account? <a href="/dashboard/signup">Sign up</a></p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

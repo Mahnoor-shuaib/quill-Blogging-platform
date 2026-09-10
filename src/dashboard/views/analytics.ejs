@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Quill — Analytics</title>
+  <link rel="stylesheet" href="/dashboard-assets/style.css">
+</head>
+<body>
+  <div class="shell">
+    <div class="sidebar">
+      <div class="brand">Quill</div>
+      <nav>
+        <a href="/dashboard">Posts</a>
+        <a href="/dashboard/posts/new">New post</a>
+        <a href="/dashboard/analytics" class="active">Analytics</a>
+        <a href="/dashboard/account">Account</a>
+      </nav>
+      <a href="/dashboard/logout" class="logout">Log out</a>
+    </div>
+
+    <div class="main">
+      <h1 style="margin-bottom: 8px;">Analytics</h1>
+      <p class="meta" style="color: var(--text-muted); margin-bottom: 28px;">Total views (all-time): <%= totalViews %></p>
+
+      <% if (events.length === 0) { %>
+        <div class="empty-state">
+          <h2>No views yet</h2>
+          <p>Once people visit your published posts, views will show up here.</p>
+        </div>
+      <% } %>
+
+      <% events.forEach(e => { %>
+        <div class="post-row" style="border-left-color: var(--accent);">
+          <div>
+            <h3 style="font-size: 15px;">Post #<%= e.post_id %> — <%= e.event_type %></h3>
+            <div class="meta" style="color: var(--text-muted);">
+              <%= e.occurred_at %> <% if (e.referrer) { %> · from <%= e.referrer %> <% } %>
+            </div>
+          </div>
+        </div>
+      <% }) %>
+    </div>
+  </div>
+</body>
+</html>
