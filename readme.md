@@ -112,5 +112,7 @@ Add the MCP server URL to your IDE configuration file (`mcpServers` section in C
   }
 }
 
+```
+
 
 **Empower your writing workflow with Quill—where code and content seamlessly converge.**
